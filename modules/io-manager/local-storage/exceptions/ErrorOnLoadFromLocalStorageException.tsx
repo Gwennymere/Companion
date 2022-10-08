@@ -1,5 +1,5 @@
-class ErrorOnLoadFromLocalStorageException extends Error {
-    constructor(reason: Error) {
-        super(reason.message);
+export class ErrorOnLoadFromLocalStorageException extends Error {
+    constructor(reason: string) {
+        super(reason);
     }
 }

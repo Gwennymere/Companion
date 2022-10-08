@@ -1,5 +1,5 @@
-class ErrorOnSaveToLocalStorageException extends Error {
-    constructor(reason: Error) {
-        super(reason.message);
+export class ErrorOnSaveToLocalStorageException extends Error {
+    constructor(reason: string) {
+        super(reason);
     }
 }

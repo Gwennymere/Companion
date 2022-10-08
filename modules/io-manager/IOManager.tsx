@@ -1,13 +1,33 @@
-interface IOManager<Type> {
-    save(entity: Entity<Type>): Promise<Entity<Type>>;
+export interface IOManager<_Entity extends Entity<Payload>, Payload> {
+    save(entity: _Entity): Promise<_Entity>;
 
-    fetch(identifier: Identifier): Promise<Entity<Type>>;
+    fetch(identifier: Identifier): Promise<_Entity>;
+
+    delete(identifier: Identifier): Promise<void>;
 }
 
-type Entity<Type> = {
-    readonly id: Identifier;
-    payload: Type;
-    version: number;
+export abstract class Entity<Payload> {
+    public readonly id: Identifier;
+    private _payload: Payload;
+    private _version: number;
+    
+    constructor(id: Identifier) {
+        this.id = id;
+    }
+
+    public get payload(): Payload {
+        return this._payload;
+    }
+    public set payload(value: Payload) {
+        this._payload = value;
+    }
+
+    public get version(): number {
+        return this._version;
+    }
+    public set version(value: number) {
+        this._version = value;
+    }
 }
 
-type Identifier = String | Number;
+export type Identifier = String | Number;

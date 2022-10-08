@@ -9,16 +9,20 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^1.8.5",
     "@types/react": "~18.0.0",
     "@types/react-native": "~0.69.1",
     "expo": "~46.0.13",
+    "expo-secure-store": "~11.3.0",
     "expo-status-bar": "~1.4.0",
     "react": "18.0.0",
     "react-native": "0.69.6",
     "react-native-paper": "^5.0.0-rc.6",
+    "react-redux": "^8.0.4",
+    "redux-persist": "^6.0.0",
+    "redux-thunk": "^2.4.1",
     "typescript": "^4.6.3",
-    "uuid": "^9.0.0",
-    "expo-secure-store": "~11.3.0"
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

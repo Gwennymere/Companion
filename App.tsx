@@ -1,15 +1,16 @@
 import { StatusBar } from 'expo-status-bar';
+import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Provider as PaperProvider } from 'react-native-paper';
-import { Provider } from 'react-redux';
+import { Provider as ReduxProvider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import NuggetManager from './modules/nugget/NuggetManager';
-import { store, persistor } from './modules/state/store';
+import { persistor, store } from './modules/state/store';
 
 export default function App() {
   return (
-    <Provider store={store}> {/* provides state */}
-      <PersistGate persistor={persistor}> {/* handles state reload on application reopen */}
+    <ReduxProvider store={store}> 
+      <PersistGate loading={null} persistor={persistor}>
         <PaperProvider>
           <View style={styles.container}>
             <Text>Open up App.js to start working on your app!</Text>
@@ -17,8 +18,8 @@ export default function App() {
             <StatusBar style="auto" />
           </View>
         </PaperProvider>
-      </PersistGate>
-    </Provider>
+     </PersistGate>
+   </ReduxProvider>
   );
 }
 

@@ -1,17 +1,25 @@
-import { persistStore } from "redux-persist";
-import reducers from './reducers';
+import { FLUSH, PAUSE, PERSIST, persistStore, PURGE, REGISTER, REHYDRATE } from "redux-persist";
 import Nugget from "../nugget/Nugget"
 import { configureStore } from "@reduxjs/toolkit";
+import persistedReducer from "./persistedReducer";
 
 export const initialState: NUGGET_STATE = {
     nuggets: []
 };
 
-const store = configureStore({reducer: reducers})
-const persistor = persistStore(store);
+const store = configureStore({
+    reducer: persistedReducer,
+    middleware: getDefaultMiddleware => getDefaultMiddleware({
+        serializableCheck: {
+          ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+        },
+    }),
+})
 
-export { store, persistor };
+const persistor = persistStore(store)
 
-export type NUGGET_STATE = {
+type NUGGET_STATE = {
     nuggets: Array<Nugget>
 }
+
+export { store, persistor, NUGGET_STATE };

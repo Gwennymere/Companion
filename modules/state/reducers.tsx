@@ -1,9 +1,16 @@
 import Nugget from "../nugget/Nugget";
 import { combineReducers } from 'redux';
 import { NUGGET_ACTION, NUGGET_ACTION_TYPE } from "./actions/NuggetAction";
-import { initialState, NUGGET_STATE } from "./store";
 
-const reduceNuggets: (oldState: NUGGET_STATE, action: NUGGET_ACTION) => NUGGET_STATE = (oldState = {nuggets: []}, action) => {
+type NUGGET_STATE = {
+    nuggets: Array<Nugget>
+}
+
+const initialState: NUGGET_STATE = {
+    nuggets: []
+};
+
+const reduceNuggets: (oldState: NUGGET_STATE, action: NUGGET_ACTION) => NUGGET_STATE = (oldState = initialState, action) => {
     switch (action.type) {
         case NUGGET_ACTION_TYPE.UPDATE_NUGGET:
 

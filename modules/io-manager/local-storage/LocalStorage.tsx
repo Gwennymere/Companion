@@ -6,7 +6,8 @@ import { ErrorOnSaveToLocalStorageException } from './exceptions/ErrorOnSaveToLo
 
 export class LocalStorage<_Entity extends Entity<Payload>, Payload> implements IOManager<_Entity, Payload> {
     async save(entity: _Entity): Promise<_Entity> {
-        return SecureStore.setItemAsync(entity.id.toString(), JSON.stringify(entity.payload))
+        console.log("Saving generic entity: ", entity);
+        return SecureStore.setItemAsync(entity.id.toString(), JSON.stringify(entity))
             .then(() => {
                 return entity;
             })
@@ -21,6 +22,8 @@ export class LocalStorage<_Entity extends Entity<Payload>, Payload> implements I
             if (result === null) {
                 throw new ErrorOnLoadFromLocalStorageException("Entity with id " + identifier + " does not exist.");
             }
+            console.log("Loaded generic entity: ", result);
+            
             return JSON.parse(result);
         })
         .catch((reason) => {

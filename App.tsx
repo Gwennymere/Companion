@@ -4,7 +4,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import { Provider as PaperProvider } from 'react-native-paper';
 import { Provider as ReduxProvider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
-import NuggetManager from './modules/nugget/NuggetManager';
+import SynchronisedNuggetStorage from './modules/nugget/SynchronisedNuggetStorage';
 import { persistor, store } from './modules/state/store';
 
 export default function App() {
@@ -14,7 +14,7 @@ export default function App() {
         <PaperProvider>
           <View style={styles.container}>
             <Text>Open up App.js to start working on your app!</Text>
-            <NuggetManager></NuggetManager>
+            <SynchronisedNuggetStorage></SynchronisedNuggetStorage>
             <StatusBar style="auto" />
           </View>
         </PaperProvider>

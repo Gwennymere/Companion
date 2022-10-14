@@ -3,7 +3,7 @@ import { Button } from 'react-native-paper';
 import { LocalStorage } from '../io-manager/local-storage/LocalStorage';
 import Nugget, { NuggetPayload } from './Nugget';
 
-export default function NuggetManager() {
+export default function SynchronisedNuggetStorage() {
     // TODO bitte provider benutzen, sis
     let localstorage: LocalStorage<Nugget, NuggetPayload>;
     const id = "demo";

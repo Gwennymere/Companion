@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { Button } from 'react-native-paper';
-import { LocalStorage } from '../io-manager/local-storage/LocalStorage';
+import { LocalStorage } from '../storage/local-storage/LocalStorage';
 import Nugget, { NuggetPayload } from './Nugget';
 
 export default function SynchronisedNuggetStorage() {

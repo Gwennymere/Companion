@@ -1,10 +1,10 @@
 import * as SecureStore from 'expo-secure-store';
-import { Entity, Identifier, IOManager } from '../IOManager';
+import { Entity, Identifier, GenericStorage } from '../GenericStorage';
 import { ErrorOnDeleteFromLocalStorageException } from './exceptions/ErrorOnDeleteFromLocalStorageException';
 import { ErrorOnLoadFromLocalStorageException } from './exceptions/ErrorOnLoadFromLocalStorageException';
 import { ErrorOnSaveToLocalStorageException } from './exceptions/ErrorOnSaveToLocalStorageException';
 
-export class LocalStorage<_Entity extends Entity<Payload>, Payload> implements IOManager<_Entity, Payload> {
+export class LocalStorage<_Entity extends Entity<Payload>, Payload> implements GenericStorage<_Entity, Payload> {
     async save(entity: _Entity): Promise<_Entity> {
         console.log("Saving generic entity: ", entity);
         return SecureStore.setItemAsync(entity.id.toString(), JSON.stringify(entity))

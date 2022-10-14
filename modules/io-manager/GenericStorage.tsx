@@ -1,4 +1,4 @@
-export interface IOManager<_Entity extends Entity<Payload>, Payload> {
+export interface GenericStorage<_Entity extends Entity<Payload>, Payload> {
     save(entity: _Entity): Promise<_Entity>;
 
     fetch(identifier: Identifier): Promise<_Entity>;

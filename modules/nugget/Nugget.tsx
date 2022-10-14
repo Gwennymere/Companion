@@ -1,5 +1,5 @@
 import {v4 as uuidv4} from 'uuid';
-import { Entity, Identifier } from '../io-manager/IOManager';
+import { Entity, Identifier } from '../io-manager/GenericStorage';
 
 export default class Nugget extends Entity<NuggetPayload> {
     constructor(id: Identifier = uuidv4()) {

@@ -8,7 +8,7 @@ export const initialState: STATE = {
     nuggetState: initialNuggetState
 };
 
-export type STANDARD_STATE<State> = {
-    initialzed: boolean,
+export type SYNCHRONIZED_STATE<State> = {
+    initialized: boolean,
     capsuledState: State
 }

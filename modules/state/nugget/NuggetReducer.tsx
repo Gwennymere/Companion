@@ -14,7 +14,7 @@ const reduceNuggets: (oldState: STATE, action: NUGGET_ACTION) => STATE = (oldSta
         case NUGGET_ACTION_TYPE.POPULATE_NUGGETS:
             return {
                 nuggetState: {
-                    initialzed: true,
+                    initialized: true,
                     capsuledState: action.payload
                 },
                 ...oldState

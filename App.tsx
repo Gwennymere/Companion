@@ -5,7 +5,7 @@ import { Provider as PaperProvider } from 'react-native-paper';
 import { Provider as ReduxProvider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import SynchronisedNuggetStorage from './modules/nugget/SynchronisedNuggetStorage';
-import { persistor, store } from './modules/state/store';
+import { persistor, store } from './modules/state/Store';
 
 export default function App() {
   return (

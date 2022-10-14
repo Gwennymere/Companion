@@ -1,7 +1,6 @@
 import { FLUSH, PAUSE, PERSIST, persistStore, PURGE, REGISTER, REHYDRATE } from "redux-persist";
-import Nugget from "../nugget/Nugget"
 import { configureStore } from "@reduxjs/toolkit";
-import persistedReducer from "./persistedReducer";
+import persistedReducer from "./PersistedReducer";
 
 const store = configureStore({
     reducer: persistedReducer,

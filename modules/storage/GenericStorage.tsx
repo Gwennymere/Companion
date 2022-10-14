@@ -3,6 +3,8 @@ export interface GenericStorage<_Entity extends Entity<Payload>, Payload> {
 
     fetch(identifier: Identifier): Promise<_Entity>;
 
+    fetchAll(): Promise<Array<_Entity>>;
+
     delete(identifier: Identifier): Promise<void>;
 }
 

@@ -4,9 +4,9 @@ import { ErrorOnDeleteFromLocalStorageException } from './exceptions/ErrorOnDele
 import { ErrorOnLoadFromLocalStorageException } from './exceptions/ErrorOnLoadFromLocalStorageException';
 import { ErrorOnSaveToLocalStorageException } from './exceptions/ErrorOnSaveToLocalStorageException';
 
-export class LocalStorage<_Entity extends Entity<Payload>, Payload> implements GenericStorage<_Entity, Payload> {
+export class LocalStorage<Payload> implements GenericStorage<Payload> {
     // TODO replace used storage with https://docs.expo.dev/versions/latest/sdk/filesystem/#installation
-    async save(entity: _Entity): Promise<_Entity> {
+    async save(entity: Entity<Payload>): Promise<Entity<Payload>> {
         console.log("Saving generic entity: ", entity);
         return SecureStore.setItemAsync(entity.id.toString(), JSON.stringify(entity))
             .then(() => {
@@ -17,7 +17,7 @@ export class LocalStorage<_Entity extends Entity<Payload>, Payload> implements G
             });
     }
 
-    async fetch(identifier: Identifier): Promise<_Entity> {
+    async fetch(identifier: Identifier): Promise<Entity<Payload>> {
         return SecureStore.getItemAsync(identifier.toString())
         .then((result) => {
             if (result === null) {
@@ -32,7 +32,7 @@ export class LocalStorage<_Entity extends Entity<Payload>, Payload> implements G
         });
     }
 
-    fetchAll(): Promise<_Entity[]> {
+    fetchAll(): Promise<Entity<Payload>[]> {
         throw new Error('Method not implemented.');
     }
 

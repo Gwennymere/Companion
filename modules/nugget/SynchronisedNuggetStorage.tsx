@@ -5,7 +5,7 @@ import Nugget, { NuggetPayload } from './Nugget';
 
 export default function SynchronisedNuggetStorage() {
     // TODO bitte provider benutzen, sis
-    let localstorage: LocalStorage<Nugget, NuggetPayload>;
+    let localstorage: LocalStorage<NuggetPayload>;
     const id = "demo";
     const nugget: Nugget = new Nugget(id);
     nugget.version = 3;

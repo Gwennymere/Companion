@@ -1,9 +1,9 @@
-export interface GenericStorage<_Entity extends Entity<Payload>, Payload> {
-    save(entity: _Entity): Promise<_Entity>;
+export interface GenericStorage<Payload> {
+    save(entity: Entity<Payload>): Promise<Entity<Payload>>;
 
-    fetch(identifier: Identifier): Promise<_Entity>;
+    fetch(identifier: Identifier): Promise<Entity<Payload>>;
 
-    fetchAll(): Promise<Array<_Entity>>;
+    fetchAll(): Promise<Array<Entity<Payload>>>;
 
     delete(identifier: Identifier): Promise<void>;
 }

@@ -1,35 +1,14 @@
 import { Store } from "@reduxjs/toolkit";
-import { INITIAL_POPULATION_ACTION } from "../state/Reducers";
-import { STATE } from "../state/State";
+import { STATE, StateHelper, STORAGE_SYNCHRONIZED_STATE_KEY } from "../state/State";
 import { GenericStorage } from "./GenericStorage";
 
-/*
-MOVE
-*/
-enum STORAGE_SYNCHRONIZED_STATE_KEY {
-    NUGGET
-}
-
-type STORAGE_SYNCHRONIZED_STATE = {
-    state: any,
-    initialPopulationAction: INITIAL_POPULATION_ACTION
-    isInitialized: boolean
-}
-
-export type MAPPED_STATE = {
-    [Property in STORAGE_SYNCHRONIZED_STATE_KEY]: STORAGE_SYNCHRONIZED_STATE
-}
-/*
-END MOVE
-*/
-
-abstract class StateSynchronisedStorage<SYNCHRONIZED_STATE, GenericStoragePayload> {
+abstract class StateSynchronisedStorage<T, GENERIC_STORAGE_PAYLOAD> {
     private store: Store;
-    private storage: GenericStorage<GenericStoragePayload>;
+    private storage: GenericStorage<GENERIC_STORAGE_PAYLOAD>;
     private oldState: STATE;
     private key: STORAGE_SYNCHRONIZED_STATE_KEY;
 
-    constructor(store: Store, key: STORAGE_SYNCHRONIZED_STATE_KEY, storage: GenericStorage<GenericStoragePayload>) {
+    constructor(store: Store, key: STORAGE_SYNCHRONIZED_STATE_KEY, storage: GenericStorage<GENERIC_STORAGE_PAYLOAD>) {
         this.store = store;
         this.storage = storage;
         this.key = key;
@@ -40,7 +19,7 @@ abstract class StateSynchronisedStorage<SYNCHRONIZED_STATE, GenericStoragePayloa
         this.storage.fetchAll()
             .then((entities) => {
                 this.store.dispatch({
-                    type: (this.store.getState() as STATE).storageSynchronized[key].initialPopulationAction,
+                    type: StateHelper.getSyncedStateInitialPopAction(this.store.getState(), key),
                     payload: {entities: entities}
                 })
             });
@@ -48,13 +27,12 @@ abstract class StateSynchronisedStorage<SYNCHRONIZED_STATE, GenericStoragePayloa
     }
 
     private _handleStateChange(): void {
-        const currentState = (this.store.getState() as STATE)?.storageSynchronized[this.key];
-        const oldState = this.oldState?.storageSynchronized[this.key];
-
-        if (oldState?.isInitialized && currentState?.isInitialized) {
-            this.handleStateChange(oldState.state, currentState.state);
+        const currentState = this.store.getState();
+        if (StateHelper.isSyncedStateInitialized(this.oldState, this.key) && StateHelper.isSyncedStateInitialized(currentState, this.key)) {
+            this.handleStateChange(StateHelper.getSyncedState<T>(this.oldState, this.key), StateHelper.getSyncedState<T>(currentState, this.key));
+            this.oldState = currentState;
         }
     };
 
-    protected abstract handleStateChange(oldState: SYNCHRONIZED_STATE, newState: SYNCHRONIZED_STATE): void;
+    protected abstract handleStateChange(oldState: T, newState: T): void;
 }
